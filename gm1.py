@@ -76,7 +76,6 @@ def load_data():
     return X, y
 
 X, y = load_data()
-
 print("Data statistics")
 print("Number of data-points", len(X))
 print("Average number of neighbors", np.average([len(i) for i in X]))
@@ -84,7 +83,7 @@ print("Max number of neighbors", np.max([len(i) for i in X]))
 print("Min number of neighbors", np.min([len(i) for i in X]))
 print("Distribution of labels", Counter(y))
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.15)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.15, random_state=42)
 
 print()
 print("Number of training examples", len(X_train))
