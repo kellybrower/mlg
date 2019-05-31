@@ -23,7 +23,7 @@ from collections import Counter
 import itertools
 
 def label_to_int(label):
-    if label == 'left=leaning':
+    if label == 'left-leaning':
         return 0
     else:
         return 1
