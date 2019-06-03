@@ -138,6 +138,7 @@ model = keras.Sequential([
   layers.Flatten(),
   layers.Softmax()
 ])
+model.add(layers.Dense(2, activation='softmax'))
 model.summary()
 
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
