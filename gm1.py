@@ -1,8 +1,11 @@
-''' To run this program properly, one must first
+''' 
+To run this program properly, one must first
 wget http://konect.uni-koblenz.de/downloads/tsv/moreno_blogs.tar.bz2
 tar xfvj moreno_blogs.tar.bz2
-
-pip install -q tensorflow==2.0.0-alpha0
+Make sure your tensorflow and scikit are up to date: 
+pip3 install -q tensorflow==2.0.0-alpha0
+pip3 install -U scikit-learn
+(pip3 since we are using python3)
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals
@@ -94,3 +97,58 @@ print()
 print("Number of test examples", len(X_test))
 print("Distribution of labels", Counter(y_test))
 print("Example: ", X_test[0], " has label ", y_test[0])
+
+def fix_size_of_list(data, target_len=FIXED_NEIGHBOR_SIZE):
+  '''
+  This function highlights one of the central challenges of graph data:
+  it is naturally variable sized and frameworks like TensorFlow want
+  fixed sized tensor data.
+  
+  Our simplistic solution is to fix the size - we chop it down if too large, or
+  zero pad it if too small.
+  '''
+  
+  delta = len(data) - target_len
+  
+  if delta >= 0:
+    return data[0:target_len]
+  else:
+    return np.pad(data, [(0, -delta), (0,0)], mode='constant', constant_values=0)
+
+
+# Create TensorFlow dataset objects ready for training and evaluation
+
+## Training data
+
+X_train_fixed = [fix_size_of_list(i) for i in X_train]
+
+dataset_train = tf.data.Dataset.from_tensor_slices(( X_train_fixed , y_train))
+dataset_train = dataset_train.batch(BATCH_SIZE)
+dataset_train = dataset_train.shuffle(BATCH_SIZE * 10)
+
+## Test data
+
+X_test_fixed = [fix_size_of_list(i) for i in X_test]
+
+dataset_test = tf.data.Dataset.from_tensor_slices(( X_test_fixed , y_test))
+dataset_test = dataset_test.batch(BATCH_SIZE)
+
+model = keras.Sequential([
+  layers.Input(shape=[FIXED_NEIGHBOR_SIZE, 2]),
+  layers.Flatten(),
+  layers.Softmax()
+])
+model.summary()
+
+model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+print("Training:")
+model.fit(dataset_train, epochs=13, verbose=1)
+
+print("\n\nFinal test accuracy:")
+
+results = model.evaluate(dataset_test)
+
+for l, v in zip(model.metrics_names, results):
+  print(l, v)
+
