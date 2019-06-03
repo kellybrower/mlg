@@ -1,0 +1,62 @@
+Data statistics
+Number of data-points 1224
+Average number of neighbors 27.312091503267975
+Max number of neighbors 351
+Min number of neighbors 1
+Distribution of labels Counter({1: 636, 0: 588})
+
+Number of training examples 1040
+Distribution of labels Counter({1: 542, 0: 498})
+Example:  [[1, 0], [1, 0], [0, 1], [0, 1], [1, 0], [0, 1], [1, 0], [0, 1], [0, 1], [1, 0], [1, 0]]  has label  1
+
+Number of test examples 184
+Distribution of labels Counter({1: 94, 0: 90})
+Example:  [[1, 0], [1, 0]]  has label  0
+2019-06-02 22:49:14.211484: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+flatten (Flatten)            (None, 20)                0         
+_________________________________________________________________
+softmax (Softmax)            (None, 20)                0         
+_________________________________________________________________
+dense (Dense)                (None, 2)                 42        
+=================================================================
+Total params: 42
+Trainable params: 42
+Non-trainable params: 0
+_________________________________________________________________
+Training:
+Epoch 1/13
+33/33 [==============================] - 0s 8ms/step - loss: 0.6888 - accuracy: 0.5221
+Epoch 2/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6808 - accuracy: 0.5346
+Epoch 3/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6730 - accuracy: 0.5721
+Epoch 4/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6653 - accuracy: 0.7038
+Epoch 5/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6578 - accuracy: 0.7490
+Epoch 6/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6504 - accuracy: 0.7827
+Epoch 7/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6432 - accuracy: 0.7913
+Epoch 8/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6360 - accuracy: 0.7990
+Epoch 9/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6290 - accuracy: 0.8202
+Epoch 10/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6221 - accuracy: 0.8346
+Epoch 11/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6154 - accuracy: 0.8510
+Epoch 12/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6087 - accuracy: 0.9010
+Epoch 13/13
+33/33 [==============================] - 0s 1ms/step - loss: 0.6022 - accuracy: 0.9096
+
+
+Final test accuracy:
+6/6 [==============================] - 0s 14ms/step - loss: 0.5925 - accuracy: 0.9620
+loss 0.5925372938315073
+accuracy 0.9619565
